@@ -1,2 +1,2 @@
 # FullStackOpen-study
-- part0 finished
+- part0 exercieses finished
