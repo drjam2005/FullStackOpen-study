@@ -9,4 +9,6 @@
         - [x] exercise 1.1 - 1.5
         - [ ] exercise 1.6
 
-- currently at `https://fullstackopen.com/en/part1/java_script#:~:text=Object%20methods%20and%20%22this%22`
+- currently at
+    - `work/part1/002-JavaScript/005-Object_methods_and_this.js`
+    - `https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps#:~:text=copy-,A%20function%20that%20returns%20a%20function,-Another%20way%20to`
