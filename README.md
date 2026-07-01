@@ -11,4 +11,4 @@
 
 - currently at
     - `work/part1/002-JavaScript/005-Object_methods_and_this.js`
-    - `https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps#:~:text=copy-,A%20function%20that%20returns%20a%20function,-Another%20way%20to`
+    - `https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps#utilization-of-large-language-models:~:text=Exercises%201.6.%2D1.14.`

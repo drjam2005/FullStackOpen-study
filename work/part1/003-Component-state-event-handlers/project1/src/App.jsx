@@ -1,25 +1,31 @@
 import React from 'react'
 
-const Display = ({ counter }) => ( <div> Current Count: {counter} </div>)
-const Button = ({onClick, text}) => ( <button onClick={onClick}> {text} </button>)
+const Display = ({ val }) => {
+	return (
+		<div> Current Count: {val} </div>
+	)
+}
+const Button = ({onClick, text}) => { 
+	return (
+		<button onClick={onClick}> {text} </button>
+	)
+}
 
 const App = () => {
 	const [value, setValue] = React.useState(10)
 
-	const handleClick = () => {
-		console.log('clicked the button');
-		setValue(0);
-	}
-
-	const hello = () => {
-		const handler = () => console.log('hello world')
-		return handler
+	const setToValue = (givenVal) => {
+		return (
+			() => { setValue(givenVal); }
+		)
 	}
 
 	return (
 		<div>
-			{value}
-			<button onClick={hello()}> button </button>
+			<Display val={value}/>
+			<br/>
+			<Button onClick={setToValue(value + 1)} text="increase" />
+			<Button onClick={setToValue(value - 1)} text="decrease" />
 		</div>
 	)
 }
