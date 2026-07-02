@@ -46,7 +46,7 @@ const App = () => {
 				<Button text="next anecdote" onClick={() => {setSelected(getRandomInt(anecdotes.length-1))}} />
 			</div>
 			<div>
-				<h1> Anecdote with the most votes </h1>
+				<h1> Anecdote with most votes </h1>
 				<DisplayAnecdote anecdote={anecdotes[max]} votes={votes[max]}/>
 			</div>
 		</div>
