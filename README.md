@@ -12,6 +12,8 @@
 - part2
     - [ ] reading finished
     - [ ] exercises finished
+        - [x] exercises 2.1 -> 2.10
+        - [ ] exercises 2.11 -> 2.20
 
 - currently at
     - `https://fullstackopen.com/en/part2/rendering_a_collection_modules#:~:text=a%20collection%2C%20modules-,a,Rendering%20a%20collection%2C%20modules,-Before%20starting%20a`
