@@ -16,4 +16,4 @@
         - [ ] exercises 2.10 -> 2.20
 
 - currently at
-    - `https://fullstackopen.com/en/part2/getting_data_from_server`
+    - `https://fullstackopen.com/en/part2/altering_data_in_server#promises-and-errors`
