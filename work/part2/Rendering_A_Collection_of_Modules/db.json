@@ -1,4 +1,4 @@
-const notes = {
+{
   "notes": [
     {
       "id": "1",
@@ -17,5 +17,3 @@ const notes = {
     }
   ]
 }
-
-console.log(notes);

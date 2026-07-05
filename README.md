@@ -12,8 +12,8 @@
 - part2
     - [ ] reading finished
     - [ ] exercises finished
-        - [x] exercises 2.1 -> 2.10
-        - [ ] exercises 2.11 -> 2.20
+        - [x] exercises 2.1 -> 2.11
+        - [ ] exercises 2.10 -> 2.20
 
 - currently at
     - `https://fullstackopen.com/en/part2/getting_data_from_server`
