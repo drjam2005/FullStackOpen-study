@@ -16,4 +16,4 @@
         - [ ] exercises 2.11 -> 2.20
 
 - currently at
-    - `https://fullstackopen.com/en/part2/rendering_a_collection_modules#:~:text=a%20collection%2C%20modules-,a,Rendering%20a%20collection%2C%20modules,-Before%20starting%20a`
+    - `https://fullstackopen.com/en/part2/getting_data_from_server`
