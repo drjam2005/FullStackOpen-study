@@ -3,6 +3,7 @@ import Persons from './components/Persons.jsx'
 import Filter from './components/Filter.jsx'
 import PersonForm from './components/PersonForm.jsx'
 import noteService from './service/notes.jsx'
+import Notification from './components/Notification.jsx'
 
 import axios from 'axios'
 
@@ -11,6 +12,8 @@ const App = () => {
 	const [newName, setName] = useState('');
 	const [newNumber, setNumber] = useState('');
 	const [newSearch, setSearch] = useState('');
+	const [notifMessage, setNotifMessage] = useState(null);
+	const [isNotifError, setIsNotifError] = useState(false);
 
 	const handleInputChange = (setter) => {
 		return (event) => setter(event.target.value);
@@ -30,25 +33,26 @@ const App = () => {
 	const addPerson = (event) => {
 		event.preventDefault();
 		if(persons.find((person) => person.name === newName)){
-			if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){
-				const personData = persons.filter(p => p.name === newName)[0];
+			if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`))
+			{
+				const personData = persons.find(p => p.name === newName);
 				personData.number = newNumber;
 				noteService.updateUser(personData.id, personData).then(response =>{
-					setPersons(
-						persons.map(p =>
-							p.id === personData.id ?
-							personData : p
-						)
-					);
+					setPersons(persons.map(p => p.id === personData.id ?  personData : p));
+					updateNotification(`Updated ${response.name}`, false);
+				}).catch(response =>{
+					updateNotification(`Information of ${personData.name} has already been removed from the server`, true);
+					setPersons(persons.filter(p => p.id !== personData.id));
 				})
 			}
 
 			return;
 		}
 
-		const newPerson = {name: newName, number: newNumber, id: persons.length+1};
-		noteService.create(newPerson).then(response => {
+		const newPersonData = {name: newName, number: newNumber, id: persons.length+1};
+		noteService.create(newPersonData).then(response => {
 			console.log("person created:", response);
+				updateNotification(`Added ${newPersonData.name}`, false);
 				setPersons(persons.concat( response));
 				setName('');
 				setNumber('');
@@ -56,16 +60,30 @@ const App = () => {
 		)
 	}
 
+	const updateNotification = (message, isError) => {
+		setIsNotifError(isError);
+		setNotifMessage(message);
+		setTimeout(
+			() => {
+				setNotifMessage(null);
+			}, 5000
+		)
+	}
+
 	const deletePerson = (id) => {
 		return () => {
-			if(window.confirm(`Delete ${persons.filter(p => p.id === id)[0].name}?`)){
+			const personName = persons.find(p => p.id === id).name
+			if(window.confirm(`Delete ${personName}?`)){
 				noteService.deleteData(id).then(response =>
 				{
+					updateNotification(
+						`Deleted ${personName}`, false
+					)
 					setPersons(
 						persons.filter(person => 
 							person.id !== response.id
 						)
-					)
+					);
 				});
 			}
 		}
@@ -79,6 +97,7 @@ const App = () => {
 	return (
 		<div>
 			<h2> Phonebook </h2>
+			<Notification message={notifMessage} isError={isNotifError}/>
 
 			<Filter handler={handleInputChange} setter={setSearch} value={newSearch}/>
 
