@@ -6,12 +6,10 @@ import noteService from './services/notes.js'
 import Notification from './components/Notification.jsx'
 
 const App = (props) => {
-	const [notes, setNotes] = useState([]);
+	const [notes, setNotes] = useState(null);
 	const [newNote, setNewNote] = useState("add a note");
 	const [showAll, setShowAll] = useState(true);
 	const [errorMessage, setErrorMessage] = useState(null);
-
-	console.log('render', notes.length, 'notes')
 
 	useEffect(() => {
 		noteService
@@ -22,6 +20,9 @@ const App = (props) => {
 			}
 		)
 	}, [])
+
+	if(!notes)
+		return null;
 
 	const test = () => {
 		axios
