@@ -20,6 +20,16 @@ const App = (props) => {
 		)
 	}, [])
 
+	const test = () => {
+		axios
+			.get('http://example.com/')
+			.then(response => {
+				console.log("data:",response.data);
+			}).catch(error => {
+				console.log("error:",error.data);
+			})
+	}
+
 
 	const toggleImportanceOf = id => {
 		const url = `http://localhost:3001/notes/${id}`;
@@ -30,6 +40,11 @@ const App = (props) => {
 			.update(id, changedNote)
 			.then(response => {
 				setNotes(notes.map(note => note.id === id ? response : note))
+			}).catch(error => {
+				alert(
+					`the note ${changedNote.content} was already deleted in the server`
+				);
+				setNotes(notes.filter(note => note.id !== id));
 			})
 	}
 
@@ -79,6 +94,9 @@ const App = (props) => {
 			</form>
 			<button onClick={() => {setShowAll(!showAll)}}>
 				show {showAll ? 'important' : 'all'}
+			</button>
+			<button onClick={test}>
+				testk
 			</button>
 		</div>
 	)

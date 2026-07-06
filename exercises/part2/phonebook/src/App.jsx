@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Persons from './components/Persons.jsx'
 import Filter from './components/Filter.jsx'
 import PersonForm from './components/PersonForm.jsx'
+import noteService from './service/notes.jsx'
 
 import axios from 'axios'
 
@@ -17,28 +18,57 @@ const App = () => {
 
 	useEffect(() => {
 		console.log('promise');
-		axios.get('http://localhost:3001/persons')
-			.then(
-				response => {
-					setPersons(response.data);
-					console.log('fulfilled, size: ', response.data.length);
-				}
-			)
+		noteService
+			.getAll()
+			.then(response => {
+				setPersons(response);
+				console.log("data:", response);
+			})
 	}, [])
 
 
 	const addPerson = (event) => {
 		event.preventDefault();
 		if(persons.find((person) => person.name === newName)){
-			alert(`${newName} is already added to phonebook`);
+			if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){
+				const personData = persons.filter(p => p.name === newName)[0];
+				personData.number = newNumber;
+				noteService.updateUser(personData.id, personData).then(response =>{
+					setPersons(
+						persons.map(p =>
+							p.id === personData.id ?
+							personData : p
+						)
+					);
+				})
+			}
+
 			return;
 		}
 
-		setPersons(persons.concat(
-			{name: newName, number: newNumber, id: persons.length+1}
-		));
-		setName('');
-		setNumber('');
+		const newPerson = {name: newName, number: newNumber, id: persons.length+1};
+		noteService.create(newPerson).then(response => {
+			console.log("person created:", response);
+				setPersons(persons.concat( response));
+				setName('');
+				setNumber('');
+			}
+		)
+	}
+
+	const deletePerson = (id) => {
+		return () => {
+			if(window.confirm(`Delete ${persons.filter(p => p.id === id)[0].name}?`)){
+				noteService.deleteData(id).then(response =>
+				{
+					setPersons(
+						persons.filter(person => 
+							person.id !== response.id
+						)
+					)
+				});
+			}
+		}
 	}
 
 	const personsToShow = (newSearch.length > 0) ?
@@ -63,9 +93,20 @@ const App = () => {
 				numberSet={setNumber}
 			/>
 
+
+			<button onClick={() => {
+				noteService
+					.getAll()
+					.then(
+						response => 
+						console.log(response)
+					)
+				}}>
+				test
+			</button>
 			<h3>Numbers</h3>
 
-			<Persons people={personsToShow}/>
+			<Persons people={personsToShow} delFunction={deletePerson}/>
 		</div>
 	)
 }

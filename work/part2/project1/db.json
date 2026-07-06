@@ -19,41 +19,6 @@
       "id": "4",
       "content": "wowwwxbrrooo",
       "important": false
-    },
-    {
-      "id": "Q0i-AIjYGk8",
-      "content": "add a note",
-      "important": false
-    },
-    {
-      "id": "CsMUfS-zKKA",
-      "content": "dfsdfdsfadd a note",
-      "important": true
-    },
-    {
-      "content": "dfsdfdsf",
-      "important": false,
-      "id": "RGOduP0fwVI"
-    },
-    {
-      "content": "dfsdfdsf",
-      "important": false,
-      "id": "VOXjqcORr8c"
-    },
-    {
-      "content": "sdfsfsdf",
-      "important": false,
-      "id": "mxcu0Qet8bQ"
-    },
-    {
-      "content": "woahhh",
-      "important": true,
-      "id": "k-njxlCV5Fs"
-    },
-    {
-      "content": "sdfsdgfdgfdg",
-      "important": false,
-      "id": "mTbCYtSmUZU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
