@@ -41,7 +41,7 @@ const DisplayCountrySolo = ({ country }) => {
 			<div>
 				Capital {capital}
 				<br/>
-				{country.area}
+				Area {country.area}
 			</div>
 			<div>
 				<h2> Languages </h2>
