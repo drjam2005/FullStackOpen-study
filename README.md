@@ -10,10 +10,13 @@
         - [x] exercise 1.1 - 1.14
 
 - part2
+    - [x] reading finished
+    - [x] exercises finished
+        - [x] exercises 2.1 -> 2.20
+- part3
     - [ ] reading finished
     - [ ] exercises finished
-        - [x] exercises 2.1 -> 2.15
-        - [ ] exercises 2.16 -> 2.20
+        - [ ] exercises 3.1 -> 3.22
 
 - currently at
-    - `https://fullstackopen.com/en/part2/altering_data_in_server#promises-and-errors`
+    - `https://fullstackopen.com/en/part3/node_js_and_express`
