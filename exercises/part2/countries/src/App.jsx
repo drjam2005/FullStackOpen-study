@@ -1,12 +1,45 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+const CapitalWeather = ({ capital }) => {
+	let [weatherData, setWeatherData] = useState(null);
+
+	useEffect(() => {
+		axios
+			.get(`https://wttr.in/${capital}?format=j1`)
+			.then(response => {
+				setWeatherData(response.data);
+			}).catch(error => {
+				console.log("Fetch Error:", error);
+			})
+	}, [capital]);
+
+	if(!weatherData) return (
+		<div> </div>
+	)
+
+	return (
+		<div>
+			Temperature {weatherData.current_condition[0].FeelsLikeC} Celcius
+			<br/>
+			Wind {(weatherData.current_condition[0].windspeedKmph / 3.6).toFixed(1)} m/s
+		</div>
+	)
+}
+
 const DisplayCountrySolo = ({ country }) => {
+
+
+	if(!country)
+		return null
+
+	const capital = country.capital[0];
+
 	return (
 		<div>
 			<h1> {country.name.common} </h1>
 			<div>
-				{country.capital[0]}
+				Capital {capital}
 				<br/>
 				{country.area}
 			</div>
@@ -18,44 +51,52 @@ const DisplayCountrySolo = ({ country }) => {
 				<div>
 					<img src={country.flags.png}/>
 				</div>
+				<div>
+					<h2> Weather in {capital} </h2>
+					<CapitalWeather capital={capital} />
+				</div>
 			</div>
 		</div>
 	)
 }
 
-const DisplayCountryList = ({ countries }) => {
-	if(!countries){
-		return ( <div> </div>)
-	}
-	if(countries.length === 0){
-		return ( <div> </div> )
-	}
-	if(countries.length === 1) {
-		return <DisplayCountrySolo country={countries[0]}/>
-	}
-	if(countries.length >= 10){
+const DisplayCountryList = ({ countries, onClick }) => {
+	if(!countries)
+		return null
+	if(countries.length <= 1)
+		return null
+	if(countries.length >= 10)
 		return (
 			<div> Too many matches, specify another filter </div>
 		)
-	}
 
 	return (
 		<div>
 			{countries.map((country, id) => 
-				<div key={id}> {country.name.common} </div>
+			<div key={id}> {country.name.common} 
+				<button onClick={onClick(country)}>
+					Show
+				</button>
+			</div>
 			)}
 		</div>
 	)
 }
 
-
 function App() {
 	const [query, setQuery] = useState('');
 	const [countries, setCountries] = useState(null);
 	let [countriesToDisplay, setCountriesToDisplay] = useState(null);
+	let [countryToDisplay, setCountryToDisplay] = useState(null);
 
 	const handleQueryChange = (event) =>{
 		setQuery(event.target.value);
+	}
+
+	const showCountry = (country) => {
+		return () => {
+			setCountryToDisplay(country);
+		}
 	}
 
 	useEffect(() => {
@@ -67,13 +108,19 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		if(!query)
-			return;
+		if (!query || !countries) return;
 
-		setCountriesToDisplay(countries.filter(country => { 
-			return country.name.common.toLowerCase().includes(query.toLowerCase());
-		}));
-	}, [query]);
+		const displayList = countries.filter(country =>
+			country.name.common.toLowerCase().includes(query.toLowerCase())
+		);
+
+		setCountryToDisplay(null);
+		setCountriesToDisplay(displayList);
+
+		if (displayList.length === 1) {
+			setCountryToDisplay(displayList[0]);
+		}
+	}, [query, countries]);
 
 	if(!countries) {
 		return (
@@ -86,7 +133,8 @@ function App() {
 	return (
 		<div>
 			find countries <input value={query} onChange={handleQueryChange}/>
-			<DisplayCountryList countries={countriesToDisplay} />
+			<DisplayCountryList countries={countriesToDisplay} onClick={showCountry}/>
+			<DisplayCountrySolo country={countryToDisplay} />
 		</div>
 	)
 }
