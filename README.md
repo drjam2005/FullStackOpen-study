@@ -16,7 +16,8 @@
 - part3
     - [ ] reading finished
     - [ ] exercises finished
-        - [ ] exercises 3.1 -> 3.22
+        - [x] exercises 3.1 -> 3.6
+        - [ ] exercises 3.7 -> 3.22
 
 - currently at
     - `https://fullstackopen.com/en/part3/node_js_and_express`
