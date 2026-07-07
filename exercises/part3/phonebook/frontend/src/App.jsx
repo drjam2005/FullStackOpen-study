@@ -20,7 +20,6 @@ const App = () => {
 	}
 
 	useEffect(() => {
-		console.log('promise');
 		noteService
 			.getAll()
 			.then(response => {

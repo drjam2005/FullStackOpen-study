@@ -5,6 +5,7 @@ const baseUrl = '/api/persons'
 
 const getAll = () => {
 	const response = axio.get(baseUrl).then( response => response.data)
+	console.log("response: ", response);
 	return response;
 }
 
