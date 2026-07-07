@@ -1,7 +1,24 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
+const requestLogger = (request, response, next) => {
+	console.log('Method:', request.method);
+	console.log('Path:  ', request.path);
+	console.log('body:  ', request.body);
+	console.log('---');
+	next();
+}
+
+const unknownEndpoint = (request, response, next) => {
+	response.status(404).send({error: 'unknown endpoint'});
+	next();
+}
+
 app.use(express.json())
+// app.use(requestLogger);
+morgan.token('body', (req) => { return JSON.stringify(req.body)});
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 let phonebook = [
     {
@@ -97,6 +114,8 @@ app.get('/info', (request, response) => {
 		</div>
 	`);
 });
+
+app.use(unknownEndpoint);
 
 const PORT = 3001;
 app.listen(PORT, () => {
