@@ -6,11 +6,9 @@
 	path = exercises/part3/phonebook/backend
 	url = git@github.com:drjam2005/FSO3_phonebook-backend.git
 	branch = main
-[submodule "work/part3/003-Saving-data-to-MongoDB/notes/backend"]
-	path = work/part3/003-Saving-data-to-MongoDB/notes/backend
-	url = git@github.com:drjam2005/FSO3_notes-backend
-	branch = main
-[submodule "work/part3/003-Saving-data-to-MongoDB/notes/frontend"]
-	path = work/part3/003-Saving-data-to-MongoDB/notes/frontend
-	url = git@github.com:drjam2005/FSO3_notes-frontend
-	branch = main
+[submodule "work/notes/backend"]
+	path = work/notes/backend
+	url = https://github.com/drjam2005/FSO3_notes-backend
+[submodule "work/notes/frontend"]
+	path = work/notes/frontend
+	url = https://github.com/drjam2005/FSO3_notes-frontend
