@@ -12,3 +12,6 @@
 [submodule "work/notes/frontend"]
 	path = work/notes/frontend
 	url = https://github.com/drjam2005/FSO3_notes-frontend
+[submodule "exercises/part4/backend"]
+	path = exercises/part4/backend
+	url = git@github.com:drjam2005/FSO4_BlogList-backend
